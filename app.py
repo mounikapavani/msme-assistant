@@ -20,27 +20,37 @@ if api_key:
     model = genai.GenerativeModel("gemini-1.5-flash-latest")
     
     # Add to your app.py sidebar
-    st.sidebar.header("🌐 Vernacular Text Chat")
-    
-    language = st.sidebar.selectbox("Choose Language", ["Telugu", "Hindi", "English"])
-    user_query = st.sidebar.text_area(f"Type your query in {language}")
-    # Generate response in selected language
+  # Sidebar Chat
+st.sidebar.header("💬 Vernacular Text Chat")
+
+language = st.sidebar.selectbox("Choose Language", ["Telugu", "Hindi", "English"])
+user_query = st.sidebar.text_area("Type your query")
+
 if user_query:
-    prompt = f"""
-    You are an MSME financial helper in Telangana.
-    Respond in {language} to: {user_query}
-    
-    Mention relevant schemes:
-    - T-TAP for textiles
-    - Mudra Loan for general business
-    - Rythu Bandhu for agriculture
-    """
-    
-    # Use direct Google Generative AI
-    response_obj = model.generate_content(prompt)
-    response = response_obj.text
-    
-    st.sidebar.success(f"Response: {response}")
+    if not api_key:
+        st.error("Please enter API Key")
+    else:
+        try:
+            genai.configure(api_key=api_key)
+            model = genai.GenerativeModel("gemini-1.5-flash")
+
+            prompt = f"""
+You are an MSME financial helper in Telangana.
+
+Respond in {language} to: {user_query}
+
+Mention relevant schemes:
+- T-TAP for textiles
+- Mudra Loan for general business
+- Rythu Bandhu for agriculture
+"""
+
+            response = model.generate_content(prompt)
+            st.write(response.text)
+
+        except Exception as e:
+            st.error(f"Error: {str(e)}")
+
 else:
     st.warning("Please enter your query")
     
