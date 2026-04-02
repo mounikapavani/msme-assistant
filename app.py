@@ -17,7 +17,7 @@ api_key = st.sidebar.text_input("Enter Google Gemini API Key", type="password") 
 
 if api_key:
     genai.configure(api_key=api_key)
-    model = genai.GenerativeModel("gemini-1.5-flash-latest")
+    model = genai.GenerativeModel("models/gemini-1.5-flash")
     
     # Add to your app.py sidebar
   # Sidebar Chat
@@ -32,7 +32,7 @@ if user_query:
     else:
         try:
             genai.configure(api_key=api_key)
-            model = genai.GenerativeModel("gemini-1.5-flash-latest")
+            model = genai.GenerativeModel("models/gemini-1.5-flash")
 
             prompt = f"""
 You are an MSME financial helper in Telangana.
