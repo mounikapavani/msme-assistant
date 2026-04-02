@@ -1,7 +1,6 @@
-streamlit==1.28.1
-pandas==2.2.0  # Newer version that supports Python 3.13
-pillow==10.1.0
-google-generativeai==0.3.2
-gTTS==2.4.0
-langchain-google-genai==0.0.7
-python-dotenv==1.0.0
+streamlit
+pandas
+pillow
+google-generativeai
+gTTS
+python-dotenv
